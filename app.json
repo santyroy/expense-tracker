@@ -1,0 +1,5 @@
+{
+  "name": "Expense Tracker",
+  "description": "An expense tracker app to manage expenses",
+  "addons": [ "heroku-postgresql" ]
+}
