@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AppController {
 
     @GetMapping
-    public String loadLoginPage() {
-        return "redirect:/v1/login";
+    public String loadIndexPage() {
+        return "index";
     }
 }

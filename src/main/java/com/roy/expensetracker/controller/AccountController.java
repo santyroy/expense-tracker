@@ -7,8 +7,10 @@ import com.roy.expensetracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -48,9 +50,12 @@ public class AccountController {
     }
 
     @PostMapping
-    public String saveAccount(Account account) {
-        accountService.saveAccount(account);
-        return "redirect:/v1/account";
+    public String saveAccount(@Valid Account account, Errors errors) {
+        if (errors.getErrorCount() == 0) {
+            accountService.saveAccount(account);
+            return "redirect:/v1/account";
+        }
+        return "add_account";
     }
 
     @PostMapping("{accountId}")

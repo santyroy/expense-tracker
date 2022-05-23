@@ -3,6 +3,8 @@ package com.roy.expensetracker.entity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,8 +14,11 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotEmpty(message = "Transaction type has to be selected")
     private String type;
+    @NotEmpty(message = "Description cannot be empty")
     private String description;
+    @NotNull(message = "Amount cannot be empty")
     private Float amount;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime time;

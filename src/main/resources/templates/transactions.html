@@ -11,6 +11,12 @@
             crossorigin="anonymous"></script>
     <link rel="icon" type="image/x-icon" href="/images/logo.png">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/style.css">
+
 </head>
 <body>
 <div class="container">
@@ -28,7 +34,7 @@
         <div class="mt-3" th:if="${transactions != null}">
             <ul class="list-group" th:each="transaction : ${transactions}">
                 <li class="list-group-item mb-1 shadow-sm p-2 mb-1 bg-body rounded">
-                    <div class="row px-2">
+                    <div class="row px-3">
                         <span class="col-lg-4 col-sm-12"><b th:text="${transaction.description}">Food</b></span>
                         <span class="col-lg-4 col-sm-12" th:text="${#strings.prepend(transaction.amount,'&#8377 ')}">2000.0</span>
                         <span class="col-lg-1 col-sm-12 badge rounded-pill" th:name="${transaction.type}"

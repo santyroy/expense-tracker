@@ -11,6 +11,12 @@
             crossorigin="anonymous"></script>
     <link rel="icon" type="image/x-icon" href="/images/logo.png">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/style.css">
+
 </head>
 <body>
 <div class="container">
@@ -29,17 +35,17 @@
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
                     <input type="text" class="form-control" id="name" th:field="${user.name}">
-                    <p class="alert alert-danger" th:if="${#fields.hasErrors('user.name')}" th:errors="*{user.name}"></p>
+                    <p class="alert alert-danger p-1 mt-1" th:if="${#fields.hasErrors('user.name')}" th:errors="*{user.name}"></p>
                 </div>
                 <div class="mb-3">
                     <label for="username" class="form-label">Email</label>
                     <input type="email" class="form-control" id="username" th:field="${user.username}">
-                    <p class="alert alert-danger" th:if="${#fields.hasErrors('user.username')}" th:errors="*{user.username}"></p>
+                    <p class="alert alert-danger p-1 mt-1" th:if="${#fields.hasErrors('user.username')}" th:errors="*{user.username}"></p>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                     <input type="password" class="form-control" id="password" th:field="${user.password}">
-                    <p class="alert alert-danger" th:if="${#fields.hasErrors('user.password')}" th:errors="*{user.password}"></p>
+                    <p class="alert alert-danger p-1 mt-1" th:if="${#fields.hasErrors('user.password')}" th:errors="*{user.password}"></p>
                 </div>
                 <button type="submit" class="btn btn-primary shadow-sm rounded">Register</button>
             </form>

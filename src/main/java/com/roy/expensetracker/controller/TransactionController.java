@@ -7,11 +7,13 @@ import com.roy.expensetracker.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -51,8 +53,11 @@ public class TransactionController {
     }
 
     @PostMapping
-    public String addTransaction(Transaction transaction) {
-        transactionService.addTransaction(transaction);
-        return "redirect:/v1/account/{accountId}/transaction";
+    public String addTransaction(@Valid Transaction transaction, Errors errors, @PathVariable long accountId) {
+        if(errors.getErrorCount() == 0){
+            transactionService.addTransaction(transaction);
+            return "redirect:/v1/account/{accountId}/transaction";
+        }
+        return "transaction_form";
     }
 }

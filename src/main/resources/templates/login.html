@@ -12,6 +12,12 @@
 
     <link rel="icon" type="image/x-icon" href="/images/logo.png">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/style.css">
+
 </head>
 <body>
 <div class="container">
@@ -23,10 +29,19 @@
     <main class="col-6 mx-auto mt-5 card shadow-sm p-3 mb-5 bg-body rounded">
         <section class="card-body">
             <form th:action="@{/v1/login}" method="post">
+
+                <div id="invalidCredentials" class="alert alert-danger mx-3" role="alert" th:if="${param.error != null}">
+                    Invalid Credentials.
+                </div>
+                <div id="loggedOut" class="alert alert-success mx-3" role="alert" th:if="${param.logout != null}">
+                    You have been logged out.
+                </div>
+
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                 <div class="mb-3">
                     <label for="username" class="form-label">Email</label>
                     <input type="email" class="form-control" id="username" th:field="${user.username}">
+
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
@@ -40,5 +55,18 @@
         </section>
     </main>
 </div>
+<script type="text/javascript">
+    let invalidCredentials = document.querySelector("#invalidCredentials");
+    let loggedOut = document.querySelector("#loggedOut");
+
+    setTimeout(function () {
+        if(invalidCredentials != null) {
+            invalidCredentials.style.display = "none";
+        }
+        if(loggedOut != null) {
+            loggedOut.style.display = "none";
+        }
+    }, 3000)
+</script>
 </body>
 </html>

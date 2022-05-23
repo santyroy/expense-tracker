@@ -11,6 +11,12 @@
             crossorigin="anonymous"></script>
     <link rel="icon" type="image/x-icon" href="/images/logo.png">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/style.css">
+
 </head>
 <body>
 <div class="container">
@@ -30,24 +36,27 @@
                     <div class="mb-3">
                         <label class="form-label">Type</label>
                         <select class="form-select" aria-label="Default select example" th:field="${transaction.type}">
-                            <option selected value="not_selected">Select type of transaction</option>
+                            <option selected value="">Select type of transaction</option>
                             <option value="credit">Credit</option>
                             <option value="debit">Debit</option>
                         </select>
-                        <!--                    <p class="alert alert-danger" th:if="${#fields.hasErrors('user.name')}" th:errors="*{user.name}"></p>-->
+                        <p class="alert alert-danger p-1 mt-1" th:if="${#fields.hasErrors('transaction.type')}"
+                           th:errors="*{transaction.type}"></p>
                     </div>
 
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
                         <input type="text" class="form-control" id="description" th:field="${transaction.description}">
-                        <!--                    <p class="alert alert-danger" th:if="${#fields.hasErrors('user.name')}" th:errors="*{user.name}"></p>-->
+                        <p class="alert alert-danger p-1 mt-1" th:if="${#fields.hasErrors('transaction.description')}"
+                           th:errors="*{transaction.description}"></p>
                     </div>
 
                     <div class="mb-3">
                         <label for="amount" class="form-label">Amount</label>
-                        <input type="number" class="form-control" id="amount" th:field="${transaction.amount}"
+                        <input type="number" step="any" class="form-control" id="amount" th:field="${transaction.amount}"
                                placeholder="&#8377">
-                        <!--                    <p class="alert alert-danger" th:if="${#fields.hasErrors('user.name')}" th:errors="*{user.name}"></p>-->
+                        <p class="alert alert-danger p-1 mt-1" th:if="${#fields.hasErrors('transaction.amount')}"
+                           th:errors="*{transaction.amount}"></p>
                     </div>
 
                     <button type="submit" class="btn btn-success shadow-sm rounded">Add</button>

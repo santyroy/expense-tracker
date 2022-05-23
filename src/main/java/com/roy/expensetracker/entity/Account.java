@@ -1,6 +1,8 @@
 package com.roy.expensetracker.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -11,8 +13,11 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotEmpty(message = "Name cannot be empty")
     private String name;
+    @NotEmpty(message = "Account type has to be selected")
     private String type;
+    @NotNull(message = "Balance cannot be empty")
     private Float balance;
     private LocalDateTime time;
     @ManyToOne
