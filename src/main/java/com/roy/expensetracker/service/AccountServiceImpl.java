@@ -8,10 +8,10 @@ import com.roy.expensetracker.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -37,8 +37,14 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Account findById(long accountId) {
-        return accountRepository.findById(accountId).orElse(null);
+    public Account findById(Principal principal, long accountId) {
+        // Get the user id
+        User user = userRepository.findByUsername(principal.getName());
+        boolean isAccountPresent = user.getAccounts().contains(accountRepository.getById(accountId));
+        if(isAccountPresent){
+            return accountRepository.findById(accountId).get();
+        }
+        return null;
     }
 
     @Override

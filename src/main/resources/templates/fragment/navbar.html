@@ -48,7 +48,7 @@
                     <a class="nav-link" th:href="@{/v1/account}">ACCOUNTS</a>
                 </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item">
-                    <a class="nav-link" href="#">REPORTS</a>
+                    <a class="nav-link" th:href="@{/v1/report}">REPORTS</a>
                 </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item">
                     <a class="nav-link" href="#">CONTACT US</a>

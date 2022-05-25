@@ -23,12 +23,21 @@
     <div th:replace="fragment/navbar :: navigation"></div>
 
     <div class="container">
-        <h3>Your transactions for account: #<span th:text="${accountId}"></span></h3>
 
-        <div class="mt-3 mb-3 mb-4">
-            <a th:href="@{/v1/account/{accountId}/transaction/add (accountId=${accountId})}">
-                <button class="btn btn-primary shadow-sm rounded" type="submit">Add Transaction</button>
-            </a>
+        <!-- account found - true -->
+        <div th:if="${accountId}">
+            <h3>Your transactions for account: #<span th:text="${accountId}"></span></h3>
+
+            <div class="mt-3 mb-3 mb-4">
+                <a th:href="@{/v1/account/{accountId}/transaction/add (accountId=${accountId})}">
+                    <button class="btn btn-primary shadow-sm rounded" type="submit">Add Transaction</button>
+                </a>
+            </div>
+        </div>
+
+        <!-- account found - false -->
+        <div th:unless="${accountId}">
+            <h3>Sorry, account not found!</h3>
         </div>
 
         <div class="mt-3" th:if="${transactions != null}">

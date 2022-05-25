@@ -30,7 +30,12 @@ public class TransactionController {
     @GetMapping
     public String showTransactionList(Principal principal, ModelMap modelMap, @PathVariable long accountId) {
 
-        Account account = accountService.findById(accountId);
+        Account account = accountService.findById(principal, accountId);
+
+        if (account == null) {
+            modelMap.put("accountId", false);
+            return "transactions";
+        }
         List<Transaction> transactions = transactionService.findByAccount(account);
 
         modelMap.put("name", principal.getName());
@@ -40,8 +45,13 @@ public class TransactionController {
     }
 
     @GetMapping("/add")
-    public String showTransactionFrom(@PathVariable long accountId, ModelMap modelMap) {
-        Account account = accountService.findById(accountId);
+    public String showTransactionFrom(Principal principal, @PathVariable long accountId, ModelMap modelMap) {
+        Account account = accountService.findById(principal, accountId);
+
+        if (account == null) {
+            modelMap.put("accountId", false);
+            return "transactions";
+        }
         Transaction transaction = new Transaction();
         transaction.setAccount(account);
         transaction.setTime(LocalDateTime.now());
@@ -54,7 +64,7 @@ public class TransactionController {
 
     @PostMapping
     public String addTransaction(@Valid Transaction transaction, Errors errors, @PathVariable long accountId) {
-        if(errors.getErrorCount() == 0){
+        if (errors.getErrorCount() == 0) {
             transactionService.addTransaction(transaction);
             return "redirect:/v1/account/{accountId}/transaction";
         }

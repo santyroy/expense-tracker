@@ -41,9 +41,14 @@
                                 Account</p>
                             <h5 class="card-text">Balance: &#8377 <span th:text="${account.balance}">5000</span></h5>
                             <div class="d-flex justify-content-between">
-                                <a th:href="@{/v1/account/{accountId}/transaction (accountId=${account.id})}"
-                                   class="btn btn-info"><i class="bi bi-info-circle"></i></a>
+                                <div class="d-flex justify-content-evenly">
+                                    <a th:href="@{/v1/account/{accountId}/transaction (accountId=${account.id})}"
+                                       class="btn btn-info me-1"><i class="bi bi-info-circle"></i></a>
+                                    <a th:href="@{/v1/report/{accountId} (accountId=${account.id})}"
+                                       class="btn btn-warning"><i class="bi bi-graph-up"></i></i></a>
+                                </div>
 
+                                <!-- offcanvas delete button -->
                                 <button class="btn btn-danger btn-outlined" data-bs-toggle="offcanvas"
                                         data-bs-target="#offcanvasTopDelete"><i class="bi bi-trash3"></i></button>
                                 <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTopDelete"
