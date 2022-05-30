@@ -63,9 +63,9 @@ public class TransactionController {
     }
 
     @PostMapping
-    public String addTransaction(@Valid Transaction transaction, Errors errors, @PathVariable long accountId) {
+    public String addTransaction(Principal principal, @Valid Transaction transaction, Errors errors, @PathVariable long accountId) {
         if (errors.getErrorCount() == 0) {
-            transactionService.addTransaction(transaction);
+            transactionService.addTransaction(principal, accountId, transaction);
             return "redirect:/v1/account/{accountId}/transaction";
         }
         return "transaction_form";

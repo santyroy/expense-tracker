@@ -36,9 +36,9 @@ public class ReportController {
         List<Account> originalAccountDetails = accountService.getAccountsOfUser(principal.getName());
 
         // calculate balance from accounts - for UI update
-        List<Account> modifiedAccountDetails = accountService.calculateBalanceFromAccounts(originalAccountDetails);
+        // List<Account> modifiedAccountDetails = accountService.calculateBalanceFromAccounts(originalAccountDetails);
 
-        model.addAttribute("pieData", getPieData(modifiedAccountDetails));
+        model.addAttribute("pieData", getPieData(originalAccountDetails));
         return "report_overall";
     }
 

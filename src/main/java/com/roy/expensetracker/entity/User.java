@@ -2,6 +2,7 @@ package com.roy.expensetracker.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,7 +21,7 @@ public class User {
     private Boolean enabled = true;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
-    private List<Account> accounts;
+    private List<Account> accounts = new ArrayList<>();
 
     public Long getId() {
         return id;

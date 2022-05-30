@@ -1,18 +1,24 @@
 package com.roy.expensetracker.controller;
 
 import com.roy.expensetracker.entity.Account;
+import com.roy.expensetracker.entity.Transaction;
 import com.roy.expensetracker.entity.User;
 import com.roy.expensetracker.service.AccountService;
+import com.roy.expensetracker.service.TransactionService;
 import com.roy.expensetracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Controller
@@ -23,6 +29,8 @@ public class AccountController {
     private AccountService accountService;
 
     @Autowired
+    private TransactionService transactionService;
+    @Autowired
     private UserService userService;
 
     @GetMapping
@@ -30,10 +38,10 @@ public class AccountController {
         List<Account> originalAccountDetails = accountService.getAccountsOfUser(principal.getName());
 
         // calculate balance from accounts - for UI update
-        List<Account> modifiedAccountDetails = accountService.calculateBalanceFromAccounts(originalAccountDetails);
+        // List<Account> modifiedAccountDetails = accountService.calculateBalanceFromAccounts(originalAccountDetails);
 
         modelMap.put("name", principal.getName());
-        modelMap.put("accounts", modifiedAccountDetails);
+        modelMap.put("accounts", originalAccountDetails);
         return "account_overview";
     }
 
@@ -50,8 +58,16 @@ public class AccountController {
     }
 
     @PostMapping
-    public String saveAccount(@Valid Account account, Errors errors) {
+    public String saveAccount(Principal principal, @Valid Account account, Errors errors) {
         if (errors.getErrorCount() == 0) {
+            Transaction initialTransaction =  new Transaction();
+            initialTransaction.setTime(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+            initialTransaction.setAmount(account.getBalance());
+            initialTransaction.setType("credit");
+            initialTransaction.setDescription("Account Open");
+            initialTransaction.setAccount(account);
+
+            account.getTransactions().add(initialTransaction);
             accountService.saveAccount(account);
             return "redirect:/v1/account";
         }

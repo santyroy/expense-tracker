@@ -1,4 +1,19 @@
 body {
-    height: 100vh;
     font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer {
+    width: 80%;
+    margin-top: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1rem;
+}
+
+.footer__logo {
+    height: 20px;
+    width: 20px;
 }
